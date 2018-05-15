@@ -44,14 +44,19 @@ module.exports = (env, options) => {
     const devMode = env.NODE_ENV !== 'production'
 
     return {
+        // тип окружения
         mode: env.NODE_ENV,
+        // точка входа
         entry: './index.tsx',
+        // настройки для получаемого js.bundle файла
         output: {
             filename: 'static/js/[hash]-[name].bundle.js',
             path: path.resolve(__dirname, 'dist')
         },
         resolve: {
+            // позволяет при импортах опускать расширения файлов, указанные в массиве
             extensions: [".ts", ".tsx", ".js", ".jsx", ".scss"],
+            // позволяет создавать псевдонимы для нужных библиотек()
             alias: {
                 react: path.resolve(path.join(__dirname, './node_modules/react')),
                 'babel-core': path.resolve(
@@ -59,12 +64,15 @@ module.exports = (env, options) => {
                 ),
             },
         },
+        // вкл мапы для браузеров
         devtool: "source-map",
+        // загрузчики необходимых ресурсов
         module: {
             rules: [{
                 test: /\.tsx?$/,
                 use: [
                     'awesome-typescript-loader',
+                    // необходимо для react-hot-loader и сборки финально бандла в es5 
                     {
                         loader: 'babel-loader',
                         options: {
@@ -80,9 +88,14 @@ module.exports = (env, options) => {
             }, {
                 test: /\.scss$/,
                 use: [
+                    // в зависимости от типа окружения выбирается поведение лоадеров
+                    // при dev - достаточно style-loader
+                    // для prod - все файлы со стилями собираются в 1-н, подключается к index.html через link
                     devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
+                        // создается source-map для результирующего css файла
+                        // а так же производится минификация этогоже файла 
                         options: {
                             minimize: cssMinimizeOptions,
                             sourceMap: true
@@ -93,16 +106,22 @@ module.exports = (env, options) => {
                     }
                 ]
             }, {
+                // генерирует source-map-ы для результирующих js/css файлов
                 test: /\.js$/,
                 use: ["source-map-loader"],
                 enforce: "pre"
             }]
         },
         plugins: [
+            // отвечает за генерацию index.html в /dist
             new HtmlWebpackPlugin(htmlConfig),
+            // отвечает за сборку всех scss|css файлов в один файл со стилями
             new MiniCssExtractPlugin(cssConfig),
+            // добавляет манифет о всех ресурсах, используемых в сборке
             new ManifestPlugin(),
+            // нужен для react-hot-loader 
             new webpack.NamedModulesPlugin(),
+            // добаляет глобальные переменные, необходим для определения типа окружения(production|development)
             new webpack.DefinePlugin({
                 'process.env':{
                     'NODE_ENV': JSON.stringify(!devMode && env.NODE_ENV)
