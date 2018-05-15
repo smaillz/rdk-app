@@ -102,7 +102,12 @@ module.exports = (env, options) => {
             new HtmlWebpackPlugin(htmlConfig),
             new MiniCssExtractPlugin(cssConfig),
             new ManifestPlugin(),
-            new webpack.NamedModulesPlugin()
+            new webpack.NamedModulesPlugin(),
+            new webpack.DefinePlugin({
+                'process.env':{
+                    'NODE_ENV': JSON.stringify(!devMode && env.NODE_ENV)
+                }
+            })
         ]
     }
 }
