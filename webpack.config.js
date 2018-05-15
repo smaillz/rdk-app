@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 const cssMinimizeOptions = {
     normalizeWhitespace: true,
@@ -72,8 +73,8 @@ module.exports = (env, options) => {
                                 '@babel/plugin-syntax-decorators',
                                 '@babel/plugin-syntax-jsx',
                                 'react-hot-loader/babel',
-                            ],
-                        },
+                            ]
+                        }
                     }
                 ]
             }, {
@@ -83,10 +84,13 @@ module.exports = (env, options) => {
                     {
                         loader: 'css-loader',
                         options: {
-                            minify: true
+                            minimize: cssMinimizeOptions,
+                            sourceMap: true
                         }
                     },
-                    'sass-loader'
+                    {
+                        loader: 'sass-loader',
+                    }
                 ]
             }, {
                 test: /\.js$/,
@@ -97,6 +101,7 @@ module.exports = (env, options) => {
         plugins: [
             new HtmlWebpackPlugin(htmlConfig),
             new MiniCssExtractPlugin(cssConfig),
+            new ManifestPlugin(),
             new webpack.NamedModulesPlugin()
         ]
     }
