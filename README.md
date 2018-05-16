@@ -1,4 +1,4 @@
-# Project Title
+# Devkit React App
 
 Devkit Typescript-React Applicarion witch using Webpack v4
 
@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 git clone https://github.com/Smaillz/DevKit-React-App.git
 npm install
 ```
-## Running the tests
+## Running application
 Run in dev mode
 
 ```
@@ -24,7 +24,7 @@ Run in production mode
 npm run build
 ```
 
-Run tslint errors
+Run typescript lint
 
 ```
 npm run lint
