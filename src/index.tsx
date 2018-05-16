@@ -25,11 +25,11 @@ class App extends React.PureComponent<IProps, any> {
 
 type IProps = IStateToProps & IDispatchToProps;
 
-interface IStateToProps {
+export interface IStateToProps {
     count: number;
 }
 
-interface IDispatchToProps {
+export interface IDispatchToProps {
     increment: () => void;
 }
 
