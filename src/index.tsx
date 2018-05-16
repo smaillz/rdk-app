@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { text } from './temp';
 import { hot } from 'react-hot-loader';
-import './styles'
+import { connect } from 'react-redux';
+import './styles';
+import { text } from './temp';
 
-class App extends React.PureComponent<IProps, IState> {
+class App extends React.PureComponent<IProps, any> {
 
     public render(): JSX.Element {
         return (
@@ -12,7 +12,11 @@ class App extends React.PureComponent<IProps, IState> {
                 <div className="container">
                     {text} asdasd
                     <h2>{this.props.count}</h2>
-                    <input type="button" value={'++'} onClick={this.props.increment} />
+                    <input
+                        type="button"
+                        value={'++'}
+                        onClick={this.props.increment}
+                    />
                 </div>
             </React.Fragment>
         );
@@ -20,8 +24,6 @@ class App extends React.PureComponent<IProps, IState> {
 }
 
 type IProps = IStateToProps & IDispatchToProps;
-
-type IState = {};
 
 interface IStateToProps {
     count: number;
@@ -35,16 +37,16 @@ const mapStateToProps = ({ tempReducer }: any): IStateToProps => {
     return {
         ...tempReducer
     };
-}
+};
 
 const increment = () => {
     return { type: 'INCREMENT' };
-}
+};
 
 const mapDispatchToProps = (dispatch: Function): IDispatchToProps => {
     return {
         increment: () => dispatch(increment())
     };
-}
+};
 
 export default connect<IStateToProps, IDispatchToProps>(mapStateToProps, mapDispatchToProps)(hot(module)(App));

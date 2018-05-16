@@ -1,0 +1,54 @@
+{
+    "extends": [
+        // "tslint:recommended",
+        "tslint-config-airbnb",
+        "tslint-react"
+    ],
+    "rules": {
+        "ter-indent": [
+            true,
+            4
+        ],
+        "linebreak-style": [
+            true,
+            "LF"
+        ],
+        "max-line-length": [
+            true,
+            120
+        ],
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "never",
+                "singleline": "never",
+                "esSpecCompliant": true
+            }
+        ],
+        "typedef": [
+            true,
+            "call-signature",
+            "parameter",
+            "arrow-parameter",
+            "property-declaration",
+            "member-variable-declaration",
+            "object-destructuring",
+            "array-destructuring"
+        ],
+        "interface-name": [true, "always-prefix"],
+        "no-empty": true,
+        "no-debugger": true,
+        "no-unused-variable": true,
+        "align": true,
+        "import-name": false,
+        "jsx-no-multiline-js": false,
+        "variable-name": [
+            true,
+            "allow-pascal-case"
+        ],
+        "strict-boolean-expressions": false,
+        "ter-arrow-parens": false,
+        "no-increment-decrement": false,
+        "object-shorthand-properties-first": false
+    }
+}

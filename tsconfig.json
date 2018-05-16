@@ -1,15 +1,32 @@
 {
     "compilerOptions": {
         "outDir": "./dist/",
-        "sourceMap": false,
+        "sourceMap": true,
         "noImplicitAny": true,
         "module": "commonjs",
         "target": "es5",
         "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "preserveConstEnums": true,
+        "allowJs": false,
+        "declaration": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "noUnusedLocals": true,
+        "skipLibCheck": true,
+        "noEmitOnError": true,
         "lib": [
             "dom",
             "es2017"
-        ]
+        ],
+        "paths": {
+            "*": [
+              "./node_modules/@types/*"
+            ]
+        }
     },
     "include": [
         "./index.tsx",

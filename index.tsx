@@ -1,29 +1,34 @@
 import * as React from 'react';
-import { Provider } from 'react-redux';
 import * as ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import App from './src';
 
-import { combineReducers, createStore, applyMiddleware, Store, compose } from 'redux';
+import {
+    applyMiddleware,
+    combineReducers,
+    createStore,
+    Store
+} from 'redux';
 import { handleActions } from 'redux-actions';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
-import { composeWithDevTools } from 'redux-devtools-extension'
 
 /* TODO
     необходимо, в перспективе, добавить либу redux-thunk для ясинхронных экшенов
     пока такой возможности нет(без костылей).
 */
 
-interface State {
+interface IState {
     count: number;
-};
+}
 
-const initialTempState: State = { count: 1 };
+const initialTempState: IState = { count: 1 };
 
 const tempReducer = handleActions({
-    ['INCREMENT']: (state: State, action) => ({
+    ['INCREMENT']: (state: IState, action: any): IState => ({
         ...state,
         count: state.count + 1
-    }),
+    })
 }, initialTempState);
 
 const rootReducer = combineReducers({ tempReducer });
