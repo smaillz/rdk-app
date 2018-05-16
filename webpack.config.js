@@ -112,6 +112,14 @@ module.exports = (env, options) => {
                 enforce: "pre"
             }]
         },
+        // настройки dev сервера
+        devServer: {
+            contentBase: path.join(__dirname, "dist"),
+            index: 'index.html',
+            compress: true,
+            host: "0.0.0.0",
+            port: 3000
+        },
         plugins: [
             // отвечает за генерацию index.html в /dist
             new HtmlWebpackPlugin(htmlConfig),
