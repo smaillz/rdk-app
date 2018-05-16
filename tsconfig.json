@@ -6,6 +6,7 @@
         "module": "commonjs",
         "target": "es5",
         "jsx": "react",
+        "baseUrl": "./",
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "preserveConstEnums": true,
