@@ -11,27 +11,23 @@ These instructions will get you a copy of the project up and running on your loc
 ```
 git clone https://github.com/Smaillz/DevKit-React-App.git
 npm install
-
 ```
 ## Running the tests
 Run in dev mode
 
 ```
 npm run start
-
 ```
 Run in production mode
 
 ```
 npm run build
-
 ```
 
 Run tslint errors
 
 ```
 npm run lint
-
 ```
 
 ## Running the tests
@@ -48,7 +44,7 @@ Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-* **Yahor Anishchanka** - *Initial work* - [PurpleBooth](https://github.com/Smaillz)
+* **Yahor Anishchanka** - *Full work* - [Smaillz](https://github.com/Smaillz)
 
 ## License
 
