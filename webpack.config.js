@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require('webpack-manifest-plugin');
 
+//настройки для минимизации css и html
 const cssMinimizeOptions = {
     normalizeWhitespace: true,
     uniqueSelectors: true,
@@ -51,7 +52,8 @@ module.exports = (env, options) => {
         // настройки для получаемого js.bundle файла
         output: {
             filename: 'static/js/[hash]-[name].bundle.js',
-            path: path.resolve(__dirname, 'dist')
+            path: path.resolve(__dirname, 'dist'),
+            publicPath: './'
         },
         resolve: {
             // позволяет при импортах опускать расширения файлов, указанные в массиве
@@ -73,7 +75,8 @@ module.exports = (env, options) => {
                 use: [
                     'awesome-typescript-loader',
                     // необходимо для react-hot-loader и сборки финально бандла в es5 
-                    {
+                    // включен в dev mode, не попадает в продакшн сборку
+                    devMode && {
                         loader: 'babel-loader',
                         options: {
                             plugins: [
@@ -84,7 +87,7 @@ module.exports = (env, options) => {
                             ]
                         }
                     }
-                ]
+                ].filter(Boolean)
             }, {
                 test: /\.scss$/,
                 use: [
@@ -105,6 +108,16 @@ module.exports = (env, options) => {
                         loader: 'sass-loader',
                     }
                 ]
+            }, {
+                test: /\.(png|jpg|gif)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'static/img/',
+                        publicPath: '/'
+                      }
+                }]
             }, {
                 // генерирует source-map-ы для результирующих js/css файлов
                 test: /\.js$/,
@@ -131,8 +144,8 @@ module.exports = (env, options) => {
             new webpack.NamedModulesPlugin(),
             // добаляет глобальные переменные, необходим для определения типа окружения(production|development)
             new webpack.DefinePlugin({
-                'process.env':{
-                    'NODE_ENV': JSON.stringify(!devMode && env.NODE_ENV)
+                'process.env': {
+                    'NODE_ENV': JSON.stringify(env.NODE_ENV)
                 }
             })
         ]
