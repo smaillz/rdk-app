@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf dist",
-    "start": "npm run lint && webpack-dev-server --open --hot --env.NODE_ENV=development",
+    "start": "npm run lint && webpack-dev-server --open 'Google Chrome' --hot --env.NODE_ENV=development",
     "build": "npm run clean && npm run lint && webpack --env.NODE_ENV=production",
     "lint": "tslint --force --project ./",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,7 +18,8 @@
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "redux": "^4.0.0",
-    "redux-actions": "^2.3.2"
+    "redux-actions": "^2.3.2",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.46",

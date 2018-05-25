@@ -7,16 +7,13 @@ import {
     applyMiddleware,
     combineReducers,
     createStore,
-    Store
+    Store,
+    Middleware
 } from 'redux';
 import { handleActions } from 'redux-actions';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import logger from 'redux-logger';
-
-/* TODO
-    необходимо, в перспективе, добавить либу redux-thunk для ясинхронных экшенов
-    пока такой возможности нет(без костылей).
-*/
+import thunk from 'redux-thunk';
 
 interface IState {
     count: number;
@@ -28,22 +25,22 @@ const tempReducer = handleActions({
     ['INCREMENT']: (state: IState, action: any): IState => ({
         ...state,
         count: state.count + 1
+    }),
+    ['RESET']: (state: IState, action: any): IState => ({
+        ...state,
+        count: 0
     })
 }, initialTempState);
 
 const rootReducer = combineReducers({ tempReducer });
 
-let store: Store;
+const middlewaresList: Middleware[] = [thunk];
 
 if (process.env.NODE_ENV !== 'production') {
-    /* TODO
-        добавление redux-devtools-extension бъет ошибку в консоль 
-        "has no exported member 'GenericStoreEnhancer'", на работу вроде как не влияет
-    */
-    store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger)));
-} else {
-    store = createStore(rootReducer);
+    middlewaresList.push(logger);
 }
+
+const store: Store = createStore(rootReducer, composeWithDevTools(applyMiddleware(...middlewaresList)));
 
 const Root = () => (
     <Provider store={store}>

@@ -132,7 +132,7 @@ module.exports = (env, options) => {
             // добаляет глобальные переменные, необходим для определения типа окружения(production|development)
             new webpack.DefinePlugin({
                 'process.env':{
-                    'NODE_ENV': JSON.stringify(!devMode && env.NODE_ENV)
+                    'NODE_ENV': JSON.stringify(env.NODE_ENV)
                 }
             })
         ]

@@ -17,6 +17,11 @@ class App extends React.PureComponent<IProps, any> {
                         value={'++'}
                         onClick={this.props.increment}
                     />
+                    <input
+                        type="button"
+                        value={'reset'}
+                        onClick={this.props.resetAsyncCount}
+                    />
                 </div>
             </React.Fragment>
         );
@@ -31,6 +36,7 @@ export interface IStateToProps {
 
 export interface IDispatchToProps {
     increment: () => void;
+    resetAsyncCount: () => void;
 }
 
 const mapStateToProps = ({ tempReducer }: any): IStateToProps => {
@@ -43,9 +49,20 @@ const increment = () => {
     return { type: 'INCREMENT' };
 };
 
+const resetCount = () => {
+    return { type: 'RESET' };
+};
+
+const resetAsyncCount = () => (dispatch: Function, getState: Function): void => {
+    setTimeout(() => {
+        dispatch(resetCount());
+    }, 2000);
+};
+
 const mapDispatchToProps = (dispatch: Function): IDispatchToProps => {
     return {
-        increment: () => dispatch(increment())
+        increment: () => dispatch(increment()),
+        resetAsyncCount: () => dispatch(resetAsyncCount())
     };
 };
 
