@@ -4,11 +4,14 @@ import { hot } from 'react-hot-loader';
 import './styles';
 import  { text } from './temp';
 
+import NavBar from './NavBar';
+
 class App extends React.PureComponent<IProps, IState> {
 
     public render(): JSX.Element {
         return (
             <React.Fragment>
+                <NavBar />
                 <div className="container">
                     {text} asdasd
                     <h2>{this.props.count}</h2>
