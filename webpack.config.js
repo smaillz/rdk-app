@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require('webpack-manifest-plugin');
 
+//настройки для минимизации css и html
 const cssMinimizeOptions = {
     normalizeWhitespace: true,
     uniqueSelectors: true,
@@ -73,7 +74,8 @@ module.exports = (env, options) => {
                 use: [
                     'awesome-typescript-loader',
                     // необходимо для react-hot-loader и сборки финально бандла в es5 
-                    {
+                    // включен в dev mode, не попадает в продакшн сборку
+                    devMode && {
                         loader: 'babel-loader',
                         options: {
                             plugins: [
@@ -84,7 +86,7 @@ module.exports = (env, options) => {
                             ]
                         }
                     }
-                ]
+                ].filter(Boolean)
             }, {
                 test: /\.scss$/,
                 use: [
@@ -105,6 +107,16 @@ module.exports = (env, options) => {
                         loader: 'sass-loader',
                     }
                 ]
+            }, {
+                test: /\.(png|jpg|gif)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'static/img/',
+                        publicPath: '/'
+                      }
+                }]
             }, {
                 // генерирует source-map-ы для результирующих js/css файлов
                 test: /\.js$/,

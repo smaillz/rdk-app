@@ -1,26 +1,26 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { hot } from 'react-hot-loader';
 import './styles';
-import  { text } from './temp';
+import { text } from './temp';
 
-class App extends React.PureComponent<IProps, IState> {
+class Test extends React.PureComponent<IProps, IState> {
 
     public render(): JSX.Element {
         return (
             <React.Fragment>
                 <div className="container">
-                    {text} asdasd
+                    {text} dadada
                     <h2>{this.props.count}</h2>
                     <input
                         type="button"
                         value={'++'}
                         onClick={this.props.increment}
                     />
+                    <br />
                     <input
                         type="button"
-                        value={'reset'}
-                        onClick={this.props.resetAsyncCount}
+                        value={'Reset'}
+                        onClick={this.props.resetCount}
                     />
                 </div>
             </React.Fragment>
@@ -37,7 +37,7 @@ export interface IStateToProps {
 
 export interface IDispatchToProps {
     increment: () => void;
-    resetAsyncCount: () => void;
+    resetCount: () => void;
 }
 
 const mapStateToProps = ({ tempReducer }: any): IStateToProps => {
@@ -50,21 +50,22 @@ const increment = () => {
     return { type: 'INCREMENT' };
 };
 
-const resetCount = () => {
-    return { type: 'RESET' };
-};
+const resetCount = () => ({
+    type: 'RESET'
+});
 
-const resetAsyncCount = () => (dispatch: Function, getState: Function): void => {
+const decrement = () => (dispatch: Function, getState: Function) => {
     setTimeout(() => {
         dispatch(resetCount());
-    }, 2000);
+    }, 1000);
 };
 
 const mapDispatchToProps = (dispatch: Function): IDispatchToProps => {
     return {
         increment: () => dispatch(increment()),
-        resetAsyncCount: () => dispatch(resetAsyncCount())
+        resetCount: () => dispatch(decrement())
+
     };
 };
 
-export default connect<IStateToProps, IDispatchToProps>(mapStateToProps, mapDispatchToProps)(hot(module)(App));
+export default connect<IStateToProps, IDispatchToProps>(mapStateToProps, mapDispatchToProps)(Test);
