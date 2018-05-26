@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './styles';
+import './styles.scss';
 import * as imageSpace from '../resources/img/1.jpg';
 
 class NavBar extends React.PureComponent<any, any> {
