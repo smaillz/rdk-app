@@ -103,19 +103,16 @@ module.exports = (env, options) => {
                             sourceMap: true
                         }
                     },
-                    {
-                        loader: 'sass-loader',
-                    }
+                    'sass-loader'
                 ]
             }, {
                 test: /\.(png|jpg|gif)$/,
                 use: [{
                     loader: 'file-loader',
                     options: {
-                        name: '[name].[ext]',
-                        outputPath: 'static/img/',
-                        publicPath: '/'
-                      }
+                        outputPath: 'static/img',
+                        publicPath: devMode ? false : path.join(__dirname, "dist/static/img")
+                    }
                 }]
             }, {
                 // генерирует source-map-ы для результирующих js/css файлов
@@ -143,7 +140,7 @@ module.exports = (env, options) => {
             new webpack.NamedModulesPlugin(),
             // добаляет глобальные переменные, необходим для определения типа окружения(production|development)
             new webpack.DefinePlugin({
-                'process.env':{
+                'process.env': {
                     'NODE_ENV': JSON.stringify(env.NODE_ENV)
                 }
             })

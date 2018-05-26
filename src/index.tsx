@@ -13,7 +13,7 @@ class App extends React.PureComponent<IProps, IState> {
             <React.Fragment>
                 <NavBar />
                 <div className="container">
-                    {text} asdasd
+                    {text}
                     <h2>{this.props.count}</h2>
                     <input
                         type="button"
