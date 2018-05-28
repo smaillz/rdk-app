@@ -13,18 +13,18 @@ git clone https://github.com/Smaillz/DevKit-React-App.git
 npm install
 ```
 ## Running application
-Run in dev mode
+Run development mode.
 
 ```
 npm run start
 ```
-Run in production mode
+Run production mode. 
 
 ```
 npm run build
 ```
 
-Run typescript lint
+Run linter for detect typescript error/warning
 
 ```
 npm run lint
@@ -32,11 +32,17 @@ npm run lint
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+Run tests( :dev - run test in debugg mode )
+
+```
+npm run test
+
+npm run test:dev
+```
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+---
 
 ## Version
  

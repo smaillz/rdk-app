@@ -64,12 +64,16 @@
     "webpack-manifest-plugin": "^2.0.2"
   },
   "keywords": [
-    "react",
     "typescript",
-    "sass",
+    "tslint",
+    "react",
+    "react-hot-loader",
     "redux",
+    "thunk",
     "webpack",
-    "tslint"
+    "sass",
+    "jest",
+    "enzyme"
   ],
   "author": "Yahor Anishchanka",
   "license": "ISC"
