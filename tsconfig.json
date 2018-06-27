@@ -23,14 +23,15 @@
             "es2017"
         ],
         "paths": {
-            "*": [
-              "./node_modules/@types/*"
-            ]
+            "*": ["./node_modules/@types/*"],
+            "@resources": ["./resources/index"],
+            "@resources/*": ["./resources/*"]
         }
     },
     "include": [
         "./index.tsx",
-        "./src/**/*"
+        "./src/**/*",
+        "./resources/**/*.ts"
     ],
     "exclude": [
         "node_modules",

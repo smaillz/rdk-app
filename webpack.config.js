@@ -64,7 +64,11 @@ module.exports = (env, options) => {
                 'babel-core': path.resolve(
                     path.join(__dirname, './node_modules/@babel/core'),
                 ),
-            },
+                // объявление ресурсного модуля(так же надо объявить его в tsconfig)
+                "@resources": path.join(__dirname, './resources/'),
+                "@resources": path.join(__dirname, './resources')
+
+            }
         },
         // вкл мапы для браузеров
         devtool: "source-map",
