@@ -6,16 +6,19 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf dist",
+    "clean:test": "rm -rf coverage",
     "start": "npm run lint && webpack-dev-server --open 'Google Chrome' --hot --env.NODE_ENV=development",
     "build": "npm run clean && npm run lint && webpack --env.NODE_ENV=production",
     "lint": "tslint --force --project ./",
-    "test": "jest --coverage",
-    "test:dev": "jest --watch"
+    "test": "npm run clean:test && jest --coverage",
+    "test:dev": "jest --watch",
+    "serve": "node ./server/index.js"
   },
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "express": "^4.16.3"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.46",
@@ -73,7 +76,9 @@
     "webpack",
     "sass",
     "jest",
-    "enzyme"
+    "enzyme",
+    "node",
+    "express"
   ],
   "author": "Yahor Anishchanka",
   "license": "ISC"
