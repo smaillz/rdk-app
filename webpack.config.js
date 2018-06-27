@@ -52,7 +52,8 @@ module.exports = (env, options) => {
         // настройки для получаемого js.bundle файла
         output: {
             filename: 'static/js/[hash]-[name].bundle.js',
-            path: path.resolve(__dirname, 'dist')
+            path: path.resolve(__dirname, 'dist'),
+            publicPath: '/'
         },
         resolve: {
             // позволяет при импортах опускать расширения файлов, указанные в массиве
@@ -111,7 +112,7 @@ module.exports = (env, options) => {
                     loader: 'file-loader',
                     options: {
                         outputPath: 'static/img',
-                        publicPath: devMode ? false : path.join(__dirname, "dist/static/img")
+                        // publicPath: devMode ? false : path.join(__dirname, "dist/static/img")
                     }
                 }]
             }, {
