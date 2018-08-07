@@ -132,7 +132,10 @@ module.exports = (env, options) => {
             index: 'index.html',
             compress: true,
             host: "0.0.0.0",
-            port: 3000
+            port: 3000,
+            // TODO для роутинга (надо почитать)
+            historyApiFallback: true,
+            // publicPath: '/'
         },
         plugins: [
             // отвечает за генерацию index.html в /dist

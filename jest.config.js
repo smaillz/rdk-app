@@ -20,9 +20,11 @@ module.exports = {
   ],
   // мапинг для модулей ресурсов и т.д
   moduleNameMapper: {
-    '\.(css|jpg|png)$': '<rootDir>/empty-module.js',
-    "^.+\\.(sass|scss)$": "identity-obj-proxy"
+    '\.(css|jpg|png)$': 'identity-obj-proxy',
+    '^.+\\.(sass|scss)$': 'identity-obj-proxy',
+    "@resources(.*)$": "<rootDir>/resources/$1",
   },
+  setupTestFrameworkScriptFile: '<rootDir>/jest-mock.js',
   //флаг при котором при каждом запуске тестов будет собираться информация о покрытии в папку coverage
   collectCoverage: true,
   //флаг при котором если какой-то тест не прошел выполнение тестов не прерывается
