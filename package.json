@@ -9,7 +9,7 @@
     "clean:test": "rm -rf coverage",
     "start": "npm run lint && webpack-dev-server --open 'Google Chrome' --hot --env.NODE_ENV=development",
     "build": "npm run clean && npm run lint && webpack --env.NODE_ENV=production",
-    "lint": "tslint --force --project ./",
+    "lint": "tslint src/**/*.ts* --force -p ./",
     "test": "npm run clean:test && jest --coverage",
     "test:dev": "jest --watch",
     "serve": "node ./server/index.js"

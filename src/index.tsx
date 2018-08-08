@@ -1,73 +1,28 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
+import { Route, Switch } from 'react-router';
+import {
+    store,
+    history
+} from './store';
 import { hot } from 'react-hot-loader';
-import './styles';
-import  { text } from './temp';
+import Home from './Containers/Home';
+import About from './Containers/About';
+import App from './Containers/Main';
 
-import NavBar from './NavBar';
+const Root = () => (
+    <Provider store={store}>
+        <ConnectedRouter history={history}>
+            <>
+                <App/>
+                <Switch>
+                    <Route exact={true} path="/"  component={Home}/>
+                    <Route  path="/about"  component={About}/>
+                </Switch>
+            </>
+        </ConnectedRouter>
+    </Provider>
+);
 
-class App extends React.PureComponent<IProps, IState> {
-
-    public render(): JSX.Element {
-        return (
-            <React.Fragment>
-                <NavBar />
-                <div className="container">
-                    {text}
-                    <h2>{this.props.count}</h2>
-                    <input
-                        type="button"
-                        value={'++'}
-                        onClick={this.props.increment}
-                    />
-                    <input
-                        type="button"
-                        value={'reset'}
-                        onClick={this.props.resetAsyncCount}
-                    />
-                </div>
-            </React.Fragment>
-        );
-    }
-}
-
-type IProps = IStateToProps & IDispatchToProps;
-type IState = {};
-
-export interface IStateToProps {
-    count: number;
-}
-
-export interface IDispatchToProps {
-    increment: () => void;
-    resetAsyncCount: () => void;
-}
-
-const mapStateToProps = ({ tempReducer }: any): IStateToProps => {
-    return {
-        ...tempReducer
-    };
-};
-
-const increment = () => {
-    return { type: 'INCREMENT' };
-};
-
-const resetCount = () => {
-    return { type: 'RESET' };
-};
-
-const resetAsyncCount = () => (dispatch: Function, getState: Function): void => {
-    setTimeout(() => {
-        dispatch(resetCount());
-    }, 2000);
-};
-
-const mapDispatchToProps = (dispatch: Function): IDispatchToProps => {
-    return {
-        increment: () => dispatch(increment()),
-        resetAsyncCount: () => dispatch(resetAsyncCount())
-    };
-};
-
-export default connect<IStateToProps, IDispatchToProps>(mapStateToProps, mapDispatchToProps)(hot(module)(App));
+export default hot(module)(Root);

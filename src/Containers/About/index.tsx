@@ -17,17 +17,13 @@ class About extends React.PureComponent<Props, State> {
     }
 }
 
-interface IStateToProps { 
-    // goBack: () => void;
+interface IStateToProps {
 }
 
 interface IDispatchToProps { }
 
 const mapStateToProps = (state: any, ownProps: any): IStateToProps => {
-    // console.log('About', state, ownProps);
-    return {
-        // goBack: ownProps.history.goBack
-    };
+    return {};
 };
 
 const mapDispatchToProps = (dispatch: Function): IDispatchToProps => {

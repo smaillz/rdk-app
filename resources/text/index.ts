@@ -1,7 +1,6 @@
-import { hello } from './hello';
-import { text2 } from './test';
+import { hello } from '@resources/text/hello';
+import { text2 } from '@resources/text/test';
 export {
     hello,
     text2
 };
-

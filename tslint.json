@@ -15,7 +15,7 @@
         ],
         "max-line-length": [
             true,
-            120
+            140
         ],
         "trailing-comma": [
             true,
@@ -24,6 +24,11 @@
                 "singleline": "never",
                 "esSpecCompliant": true
             }
+        ],
+        "align": [
+            true,
+            "parameters",
+            "statements"
         ],
         "typedef": [
             true,
@@ -38,8 +43,6 @@
         "interface-name": [true, "always-prefix"],
         "no-empty": true,
         "no-debugger": true,
-        "no-unused-variable": true,
-        "align": true,
         "import-name": false,
         "jsx-no-multiline-js": false,
         "variable-name": [
@@ -49,6 +52,95 @@
         "strict-boolean-expressions": false,
         "ter-arrow-parens": false,
         "no-increment-decrement": false,
-        "object-shorthand-properties-first": false
+        "object-shorthand-properties-first": false,
+        "ban": false,
+        "class-name": true,
+        "comment-format": [
+            true,
+            "check-space"
+        ],
+        "curly": false,
+        "eofline": true,
+        "forin": true,
+        "indent": [
+            true,
+            "spaces"
+        ],
+        "jsx-boolean-value": false,
+        "jsdoc-format": true,
+        "label-position": true,
+        "no-any": false,
+        "no-arg": true,
+        "no-bitwise": true,
+        "no-console": [
+            true,
+            "debug",
+            "info",
+            "time",
+            "timeEnd",
+            "trace"
+        ],
+        "no-construct": true,
+        "no-constructor-vars": false,
+        "no-shadowed-variable": true,
+        "no-duplicate-variable": true,
+        "no-eval": true,
+        "no-internal-module": true,
+        "no-string-literal": false,
+        "no-switch-case-fall-through": true,
+        "no-require-imports": false,
+        "no-trailing-whitespace": true,
+        "no-unused-expression": [true, "allow-fast-null-checks"],
+        "no-var-keyword": true,
+        "no-var-requires": false,
+        "one-line": [
+            true,
+            "check-open-brace",
+            "check-catch",
+            "check-else",
+            "check-whitespace"
+        ],
+        "quotemark": [
+            true,
+            "single",
+            "avoid-escape",
+            "jsx-double"
+        ],
+        "radix": true,
+        "semicolon": [true, "always"],
+        "switch-default": true,
+        "triple-equals": [
+            true,
+            "allow-null-check"
+        ],
+        "whitespace": [
+            true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-separator",
+            "check-type",
+            "check-module",
+            "check-rest-spread",
+            "check-type-operator",
+            "check-preblock"
+        ],
+        "typedef-whitespace": [true, {
+            "call-signature": "nospace",
+            "index-signature": "nospace",
+            "parameter": "nospace",
+            "property-declaration": "nospace",
+            "variable-declaration": "nospace"
+        }, {
+            "call-signature": "onespace",
+            "index-signature": "onespace",
+            "parameter": "onespace",
+            "property-declaration": "onespace",
+            "variable-declaration": "onespace"
+        }],
+        "prefer-const": true,
+        "space-before-function-paren": [true, "never"],
+        "import-spacing": true,
+        "no-boolean-literal-compare": false
     }
 }
