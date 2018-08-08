@@ -7,8 +7,8 @@
   "scripts": {
     "clean": "rm -rf dist",
     "clean:test": "rm -rf coverage",
+    "build": "npm run clean && npm run lint && webpack --config ./webpack.config.prod.js --env.NODE_ENV=production",
     "start": "npm run lint && webpack-dev-server --open 'Google Chrome' --hot --env.NODE_ENV=development",
-    "build": "npm run clean && npm run lint && webpack --env.NODE_ENV=production",
     "lint": "tslint src/**/*.ts* --force -p ./",
     "test": "npm run clean:test && jest --coverage",
     "test:dev": "jest --watch",
