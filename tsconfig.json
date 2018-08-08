@@ -16,7 +16,6 @@
         "strictNullChecks": true,
         "suppressImplicitAnyIndexErrors": true,
         "noUnusedLocals": true,
-        "skipLibCheck": true,
         "noEmitOnError": true,
         "lib": [
             "dom",
@@ -29,7 +28,6 @@
         }
     },
     "include": [
-        "./index.tsx",
         "./src/**/*",
         "./resources/**/*.ts"
     ],

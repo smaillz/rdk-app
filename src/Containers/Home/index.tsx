@@ -8,8 +8,6 @@ type State = {};
 
 class Home extends React.PureComponent<Props, State> {
     public render(): JSX.Element {
-        console.log('Home', this.props);
-
         return (
             <>
                 <h1>Home component</h1>
