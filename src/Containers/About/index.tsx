@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import './styles.scss';
 
 type Props = IStateToProps & IDispatchToProps;
 
@@ -11,6 +12,7 @@ class About extends React.PureComponent<Props, State> {
         return (
             <>
                 <h1>About component</h1>
+                <span className="asd">asd</span>
                 <Link to="/">Home</Link>
             </>
         );
