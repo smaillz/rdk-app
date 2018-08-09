@@ -1,6 +1,5 @@
 import {
     applyMiddleware,
-    // combineReducers,
     createStore,
     Store,
     Middleware
