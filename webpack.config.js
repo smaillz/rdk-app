@@ -60,18 +60,26 @@ const webpackConfig = {
                 }
             ]
         }, {
-            test: /\.scss$/,
+            test: /\.s(a|c)ss$/,
             use: [
                 'style-loader',
                 'css-loader',
                 'stylus-loader'
             ]
         }, {
-            test: /\.(png|jpg|gif)$/,
+            test: /\.(svg|png|jpg|gif)$/,
             use: [{
                 loader: 'file-loader',
                 options: {
-                    outputPath: 'static/img'
+                    outputPath: 'static/images'
+                }
+            }]
+        }, {
+            test: /\.(eot|ttf|woff|woff2)$/,
+            use: [{
+                loader: 'file-loader',
+                options: {
+                    outputPath: 'static/fonts'
                 }
             }]
         }, {

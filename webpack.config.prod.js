@@ -75,11 +75,19 @@ const webpackConfig = {
                 'stylus-loader'
             ]
         }, {
-            test: /\.(png|jpg|gif)$/,
+            test: /\.(svg|png|jpg|gif)$/,
             use: [{
                 loader: 'file-loader',
                 options: {
-                    outputPath: 'static/img',
+                    outputPath: 'static/images',
+                }
+            }]
+        }, {
+            test: /\.(eot|ttf|woff|woff2)$/,
+            use: [{
+                loader: 'file-loader',
+                options: {
+                    outputPath: 'static/fonts'
                 }
             }]
         }]
