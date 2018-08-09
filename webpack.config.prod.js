@@ -72,7 +72,7 @@ const webpackConfig = {
                 // для prod - все файлы со стилями собираются в 1-н файл, подключается к index.html через link
                 MiniCssExtractPlugin.loader,
                 'css-loader',
-                'sass-loader'
+                'stylus-loader'
             ]
         }, {
             test: /\.(png|jpg|gif)$/,

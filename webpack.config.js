@@ -64,7 +64,7 @@ const webpackConfig = {
             use: [
                 'style-loader',
                 'css-loader',
-                'sass-loader'
+                'stylus-loader'
             ]
         }, {
             test: /\.(png|jpg|gif)$/,
