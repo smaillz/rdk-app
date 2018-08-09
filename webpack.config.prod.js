@@ -3,20 +3,10 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require('webpack-manifest-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-// настройки для минимизации css и html
-const cssMinimizeOptions = {
-    normalizeWhitespace: true,
-    uniqueSelectors: true,
-    colormin: true,
-    discardComments: true,
-    discardDuplicates: true,
-    discardEmpty: true,
-    discardOverridden: true,
-    minifyParams: true,
-    minifyFontValues: true
-};
-
+// настройки для минимизации html
 const htmlMinimizeOptions = {
     removeComments: true,
     collapseWhitespace: true,
@@ -41,7 +31,6 @@ const htmlConfig = {
 const cssConfig = {
     filename: './static/css/[hash].css'
 };
-
 
 const webpackConfig = {
     // тип окружения
@@ -69,8 +58,9 @@ const webpackConfig = {
 
         }
     },
-    // выкл source-map-ы для браузеров
-    devtool: false,
+    // вкл source-map-ы для отображение исходников в браузере
+    // в продакшн сборке надо отключать(пока вкл для отладки)
+    devtool: 'source-map',
     // загрузчики необходимых ресурсов
     module: {
         rules: [{
@@ -81,14 +71,7 @@ const webpackConfig = {
             use: [
                 // для prod - все файлы со стилями собираются в 1-н файл, подключается к index.html через link
                 MiniCssExtractPlugin.loader,
-                {
-                    loader: 'css-loader',
-                    // производится минификация этогоже файла 
-                    // options: {
-                    //     minimize: cssMinimizeOptions,
-                    // }
-                    options: { minimize: true }
-                },
+                'css-loader',
                 'sass-loader'
             ]
         }, {
@@ -100,6 +83,26 @@ const webpackConfig = {
                 }
             }]
         }]
+    },
+    //настройки минимизации для js и css
+    optimization: {
+        minimizer: [
+            // UglifyJsPlugin - минимизация js результирующего файла (вписан сюда потому что если оставить только для css, js файл не минифицируется)
+            new UglifyJsPlugin({
+                cache: true,
+                parallel: true,
+                sourceMap: true
+            }),
+            // OptimizeCSSAssetsPlugin - минимизация css результирующего файла
+            new OptimizeCSSAssetsPlugin({
+                cssProcessorOptions : {
+                    map : {
+                      inline :  false,
+                      annotation: true
+                    }
+                  }
+            })
+        ]
     },
     plugins: [
         // отвечает за генерацию index.html в /dist
@@ -118,7 +121,7 @@ const webpackConfig = {
 };
 
 module.exports = (env, options) => {
-    console.log(`Application run in ${env.NODE_ENV} mode`);
+    console.log(`Application run in ${env.NODE_ENV.toUpperCase()} mode`);
 
     return webpackConfig;
 }

@@ -4,48 +4,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require('webpack-manifest-plugin');
 
-// настройки для минимизации css и html
-const cssMinimizeOptions = {
-    normalizeWhitespace: true,
-    uniqueSelectors: true,
-    colormin: true,
-    discardComments: true,
-    discardDuplicates: true,
-    discardEmpty: true,
-    discardOverridden: true,
-    minifyParams: true,
-    minifyFontValues: true
-};
-
-const htmlMinimizeOptions = {
-    removeComments: true,
-    collapseWhitespace: true,
-    removeRedundantAttributes: true,
-    useShortDoctype: true,
-    removeEmptyAttributes: true,
-    removeStyleLinkTypeAttributes: true,
-    keepClosingSlash: true,
-    minifyJS: true,
-    minifyCSS: true,
-    minifyURLs: true,
-};
-
 // настройки для плагинов html & css
 const htmlConfig = {
-    title: 'Devkit App',
+    title: 'Devkit App (dev)',
     favicon: './public/favicon.ico',
     template: './public/index.html',
-    minify: htmlMinimizeOptions
 };
-
-const cssConfig = {
-    filename: './static/css/[hash].css'
-};
-
 
 const webpackConfig = {
     // тип окружения
-    mode: env.NODE_ENV,
+    mode: 'development',
     // точка входа
     entry: './index.tsx',
     // настройки для получаемого js.bundle файла
@@ -78,8 +46,8 @@ const webpackConfig = {
             use: [
                 'awesome-typescript-loader',
                 // необходимо для react-hot-loader и сборки финально бандла в es5 
-                // включен в dev mode, не попадает в продакшн сборку
-                devMode && {
+                // включен в dev mode, не долже попадаеть в продакшн сборку
+                {
                     loader: 'babel-loader',
                     options: {
                         plugins: [
@@ -90,23 +58,12 @@ const webpackConfig = {
                         ]
                     }
                 }
-            ].filter(Boolean)
+            ]
         }, {
             test: /\.scss$/,
             use: [
-                // в зависимости от типа окружения выбирается поведение лоадеров
-                // при dev - достаточно style-loader
-                // для prod - все файлы со стилями собираются в 1-н файл, подключается к index.html через link
-                devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-                {
-                    loader: 'css-loader',
-                    // создается source-map для результирующего css файла
-                    // а так же производится минификация этогоже файла 
-                    options: {
-                        minimize: cssMinimizeOptions,
-                        sourceMap: true
-                    }
-                },
+                'style-loader',
+                'css-loader',
                 'sass-loader'
             ]
         }, {
@@ -114,8 +71,7 @@ const webpackConfig = {
             use: [{
                 loader: 'file-loader',
                 options: {
-                    outputPath: 'static/img',
-                    // publicPath: devMode ? false : path.join(__dirname, "dist/static/img")
+                    outputPath: 'static/img'
                 }
             }]
         }, {
@@ -139,8 +95,6 @@ const webpackConfig = {
     plugins: [
         // отвечает за генерацию index.html в /dist
         new HtmlWebpackPlugin(htmlConfig),
-        // отвечает за сборку всех scss|css файлов в один файл со стилями
-        new MiniCssExtractPlugin(cssConfig),
         // добавляет манифет о всех ресурсах, используемых в сборке
         new ManifestPlugin(),
         // нужен для react-hot-loader 
@@ -148,14 +102,14 @@ const webpackConfig = {
         // добаляет глобальные переменные, необходим для определения типа окружения(production|development)
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': JSON.stringify(env.NODE_ENV)
+                'NODE_ENV': JSON.stringify('development')
             }
         })
     ]
 };
 
 module.exports = (env, options) => {
-    const devMode = env.NODE_ENV !== 'production'
+    console.log(`Application run in ${env.NODE_ENV.toUpperCase()} mode`);
 
     return webpackConfig;
 }
