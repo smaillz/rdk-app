@@ -15,7 +15,7 @@
         ],
         "max-line-length": [
             true,
-            140
+            160
         ],
         "trailing-comma": [
             true,
@@ -37,7 +37,6 @@
             "arrow-parameter",
             "property-declaration",
             "member-variable-declaration",
-            "object-destructuring",
             "array-destructuring"
         ],
         "interface-name": [true, "always-prefix"],

@@ -46,16 +46,17 @@ const webpackConfig = {
     resolve: {
         // позволяет при импортах опускать расширения файлов, указанные в массиве
         extensions: [".ts", ".tsx", ".js", ".jsx", ".scss"],
-        // позволяет создавать псевдонимы для нужных библиотек()
+        // позволяет создавать псевдонимы для нужных библиотек и модулей
         alias: {
             react: path.resolve(path.join(__dirname, './node_modules/react')),
             'babel-core': path.resolve(
-                path.join(__dirname, './node_modules/@babel/core'),
+                path.join(__dirname, './node_modules/@babel/core')
             ),
             // объявление ресурсного модуля(так же надо объявить его в tsconfig)
             "@resources": path.join(__dirname, './resources/'),
-            "@resources": path.join(__dirname, './resources')
-
+            "@resources": path.join(__dirname, './resources'),
+            "@models": path.join(__dirname, './src/Models'),
+            "@consts": path.join(__dirname, './src/Constants')
         }
     },
     // вкл source-map-ы для отображение исходников в браузере

@@ -28,8 +28,15 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
 body {
 	line-height: 1;
+	background: url('../resources/images/wood.jpg');
 }
 ol, ul {
 	list-style: none;
@@ -47,9 +54,7 @@ table {
 	border-spacing: 0;
 }
 
-.container {
-    width: 100px;
-    height: 100px;
-    background: gray;
-    color: black;
+@font-face {
+    font-family: "RobotoRegular";
+	src : url("../resources/fonts/test.ttf");
 }

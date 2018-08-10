@@ -9,7 +9,6 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-
 import rootReducer from './Redusers';
 
 export const history = createBrowserHistory();

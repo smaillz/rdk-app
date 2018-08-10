@@ -80,6 +80,7 @@
     "react",
     "react-hot-loader",
     "redux",
+    "react-router",
     "thunk",
     "webpack",
     "sass",

@@ -1,35 +1,25 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import './styles.scss';
+import { cry_cat } from '@resources/images';
+import ModalButton from '../../Components/ModalButton';
 
-type Props = IStateToProps & IDispatchToProps;
+interface IProps { }
 
-type State = {};
+interface IState {
+    isOpen: boolean;
+}
 
-class About extends React.PureComponent<Props, State> {
+class About extends React.PureComponent<IProps, IState> {
     public render(): JSX.Element {
         return (
-            <>
-                <h1>About component</h1>
-                <span className="asd">asd</span>
-                <Link to="/">Home</Link>
-            </>
+            <div className="content">
+                <ModalButton>
+                    <div>Modal</div>
+                    <img className="modal_img" src={cry_cat} alt="cat"/>
+                </ModalButton>
+            </div>
         );
     }
 }
 
-interface IStateToProps {
-}
-
-interface IDispatchToProps { }
-
-const mapStateToProps = (state: any, ownProps: any): IStateToProps => {
-    return {};
-};
-
-const mapDispatchToProps = (dispatch: Function): IDispatchToProps => {
-    return {};
-};
-
-export default connect<IStateToProps, IDispatchToProps>(mapStateToProps, mapDispatchToProps)(About);
+export default About;

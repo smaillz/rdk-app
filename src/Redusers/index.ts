@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import { tempReducer } from './mainReducer';
+import { userReducer } from './user-reducer';
+import { secondReducer } from './second-reducer';
 
 export default combineReducers({
-    tempReducer
+    userState: userReducer,
+    secondState: secondReducer
 });
