@@ -1,35 +1,19 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import './styles.scss';
+import { spoke } from '@resources/images';
 
-type Props = IStateToProps & IDispatchToProps;
+interface IProps {}
+interface IState {}
 
-type State = {};
-
-class Home extends React.PureComponent<Props, State> {
+export class Home extends React.PureComponent<IProps, IState> {
     public render(): JSX.Element {
         return (
-            <>
-                <h1>Home component</h1>
-                <span className="title">dada</span>
-                <Link to="/about">About</Link>
-            </>
+            <div className="content">
+                <p>Start page applications</p>
+                <img src={spoke} alt="Welcome"/>
+            </div>
         );
     }
 }
 
-interface IStateToProps { }
-
-interface IDispatchToProps { }
-
-const mapStateToProps = (state: any): IStateToProps => {
-    return {
-    };
-};
-
-const mapDispatchToProps = (dispatch: Function): IDispatchToProps => {
-    return {};
-};
-
-export default connect<IStateToProps, IDispatchToProps>(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;

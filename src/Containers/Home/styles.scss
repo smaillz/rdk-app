@@ -1,11 +1,16 @@
-@font-face {
-    font-family: "RobotoRegular";
-	src : url("../../../resources/fonts/test.ttf");
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 360px;
+    padding: 20px;
+    &>p {
+        margin-bottom: 20px;
+        font-family: RobotoRegular;
+        font-style: oblique;
+        font-weight: bold;
+        font-size: 40px;
+        color: black;
+    }
 }
-
-.title {
-	display: block;
-	font-family: RobotoRegular;
-	color: blue;
-}
-

@@ -23,6 +23,9 @@ module.exports = {
     '\.(css|jpg|png)$': 'identity-obj-proxy',
     '^.+\\.(sass|scss)$': 'identity-obj-proxy',
     "@resources(.*)$": "<rootDir>/resources/$1",
+    "@models(.*)$": "<rootDir>/src/Models/$1",
+    "@consts(.*)$": "<rootDir>/src/Constants/$1",
+    "@thunk(.*)$": "<rootDir>/src/Thunk/$1"
   },
   setupTestFrameworkScriptFile: '<rootDir>/jest-mock.js',
   //флаг при котором при каждом запуске тестов будет собираться информация о покрытии в папку coverage

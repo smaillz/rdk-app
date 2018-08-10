@@ -25,16 +25,19 @@ const webpackConfig = {
     resolve: {
         // позволяет при импортах опускать расширения файлов, указанные в массиве
         extensions: [".ts", ".tsx", ".js", ".jsx", ".scss"],
-        // позволяет создавать псевдонимы для нужных библиотек()
+        // позволяет создавать псевдонимы для нужных библиотек  и модулей
         alias: {
             react: path.resolve(path.join(__dirname, './node_modules/react')),
             'babel-core': path.resolve(
-                path.join(__dirname, './node_modules/@babel/core'),
+                path.join(__dirname, './node_modules/@babel/core')
             ),
             // объявление ресурсного модуля(так же надо объявить его в tsconfig)
             "@resources": path.join(__dirname, './resources/'),
-            "@resources": path.join(__dirname, './resources')
-
+            "@resources": path.join(__dirname, './resources'),
+            "@models": path.join(__dirname, './src/Models'),
+            "@consts": path.join(__dirname, './src/Constants'),
+            "@actions": path.join(__dirname, './src/Actions/'),
+            "@thunk": path.join(__dirname, './src/Thunk/')
         }
     },
     // вкл мапы для браузеров
@@ -46,7 +49,7 @@ const webpackConfig = {
             use: [
                 'awesome-typescript-loader',
                 // необходимо для react-hot-loader и сборки финально бандла в es5 
-                // включен в dev mode, не долже попадаеть в продакшн сборку
+                // включен в dev mode, не должен попадать в продакшн сборку
                 {
                     loader: 'babel-loader',
                     options: {
@@ -67,7 +70,7 @@ const webpackConfig = {
                 'stylus-loader'
             ]
         }, {
-            test: /\.(svg|png|jpg|gif)$/,
+            test: /\.(svg|png|jpg|gif|jpeg)$/,
             use: [{
                 loader: 'file-loader',
                 options: {
