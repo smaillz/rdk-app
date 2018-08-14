@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import './styles.scss';
 
-class NavBar extends React.PureComponent<any, any> {
+export class NavBar extends React.PureComponent<any, any> {
     public render(): JSX.Element {
         return (
             <nav className="nav">
