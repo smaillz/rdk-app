@@ -20,7 +20,7 @@ const htmlMinimizeOptions = {
     minifyURLs: true,
 };
 
-// настройки для плагинов html & css
+// настройки для плагинов HtmlWebpackPlugin & MiniCssExtractPlugin
 const htmlConfig = {
     title: 'Devkit App',
     favicon: './public/favicon.ico',
@@ -32,12 +32,15 @@ const cssConfig = {
     filename: './static/css/[hash].css'
 };
 
+// базовые настройки конфига webpack
 const webpackConfig = {
     // тип окружения
     mode: 'production',
     // точка входа
-    entry: './index.tsx',
-    // настройки для получаемого js.bundle файла
+    entry: {
+        app: path.resolve(__dirname, 'index.tsx')
+    },
+    // настройки для результирующего js бандла и все что к нему прилагается(css,image,...)
     output: {
         filename: 'static/js/[hash]-[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -47,22 +50,28 @@ const webpackConfig = {
         // позволяет при импортах опускать расширения файлов, указанные в массиве
         extensions: [".ts", ".tsx", ".js", ".jsx", ".scss"],
         // позволяет создавать псевдонимы для нужных библиотек и модулей
+        // а так же настраиваются сокращения при импортах к указанным директориям
         alias: {
             react: path.resolve(path.join(__dirname, './node_modules/react')),
             'babel-core': path.resolve(
                 path.join(__dirname, './node_modules/@babel/core')
             ),
-            // объявление ресурсного модуля(так же надо объявить его в tsconfig)
+            // объявление ресурсных модулей(так же надо объявить его в tsconfig)
             "@resources": path.join(__dirname, './resources/'),
             "@resources": path.join(__dirname, './resources'),
             "@models": path.join(__dirname, './src/Models'),
-            "@consts": path.join(__dirname, './src/Constants')
+            "@consts": path.join(__dirname, './src/Constants'),
+            "@actions": path.join(__dirname, './src/Actions/'),
+            "@thunk": path.join(__dirname, './src/Thunk/'),
+            "@containers": path.join(__dirname, './src/Containers/'),
+            "@components": path.join(__dirname, './src/Components/'),
+            "@utils": path.join(__dirname, './src/Utils')
         }
     },
     // вкл source-map-ы для отображение исходников в браузере
     // в продакшн сборке надо отключать(пока вкл для отладки)
     devtool: 'source-map',
-    // загрузчики необходимых ресурсов
+    // загрузчики для различных типов файлов
     module: {
         rules: [{
             test: /\.tsx?$/,
@@ -76,7 +85,7 @@ const webpackConfig = {
                 'stylus-loader'
             ]
         }, {
-            test: /\.(svg|png|jpg|gif)$/,
+            test: /\.(svg|png|jpg|gif|jpeg)$/,
             use: [{
                 loader: 'file-loader',
                 options: {
@@ -104,19 +113,19 @@ const webpackConfig = {
             }),
             // OptimizeCSSAssetsPlugin - минимизация css результирующего файла
             new OptimizeCSSAssetsPlugin({
-                cssProcessorOptions : {
-                    map : {
-                      inline :  false,
-                      annotation: true
+                cssProcessorOptions: {
+                    map: {
+                        inline: false,
+                        annotation: true
                     }
-                  }
+                }
             })
         ]
     },
     plugins: [
-        // отвечает за генерацию index.html в /dist
+        // отвечает за генерацию результирующего index.html в /dist
         new HtmlWebpackPlugin(htmlConfig),
-        // отвечает за сборку всех scss|css файлов в один файл со стилями
+        // отвечает за сборку всех scss|sass|css файлов в один файл со стилями
         new MiniCssExtractPlugin(cssConfig),
         // добавляет манифет о всех ресурсах, используемых в сборке
         new ManifestPlugin(),
@@ -129,7 +138,7 @@ const webpackConfig = {
     ]
 };
 
-module.exports = (env, options) => {
+module.exports = (env) => {
     console.log(`Application run in ${env.NODE_ENV.toUpperCase()} mode`);
 
     return webpackConfig;

@@ -28,7 +28,10 @@
             "@models": ["./src/Models/index"],
             "@consts": ["./src/Constants/index"],
             "@actions/*": ["./src/Actions/*"],
-            "@thunk/*": ["./src/Thunk/*"]
+            "@thunk/*": ["./src/Thunk/*"],
+            "@containers/*": ["./src/Containers/*"],
+            "@components/*": ["./src/Components/*"],
+            "@utils": ["./src/Utils"],
         }
     },
     "include": [
