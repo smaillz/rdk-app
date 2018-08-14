@@ -27,7 +27,7 @@ module.exports = {
     "@consts(.*)$": "<rootDir>/src/Constants/$1",
     "@thunk(.*)$": "<rootDir>/src/Thunk/$1"
   },
-  setupTestFrameworkScriptFile: '<rootDir>/jest-mock.js',
+  setupTestFrameworkScriptFile: '<rootDir>/jest-settings.js',
   //флаг при котором при каждом запуске тестов будет собираться информация о покрытии в папку coverage
   collectCoverage: true,
   //флаг при котором если какой-то тест не прошел выполнение тестов не прерывается
