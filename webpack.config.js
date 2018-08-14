@@ -1,22 +1,24 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require('webpack-manifest-plugin');
 
-// настройки для плагинов html & css
+// настройки для HtmlWebpackPlugin
 const htmlConfig = {
     title: 'Devkit App (dev)',
     favicon: './public/favicon.ico',
     template: './public/index.html',
 };
 
+// базовые настройки конфига webpack
 const webpackConfig = {
     // тип окружения
     mode: 'development',
-    // точка входа
-    entry: './index.tsx',
-    // настройки для получаемого js.bundle файла
+    // точка входа приложения
+    entry: {
+        app: path.resolve(__dirname, 'index.tsx')
+    },
+    // настройки для результирующего js бандла и все что к нему прилагается(css,image,...)
     output: {
         filename: 'static/js/[hash]-[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -25,24 +27,28 @@ const webpackConfig = {
     resolve: {
         // позволяет при импортах опускать расширения файлов, указанные в массиве
         extensions: [".ts", ".tsx", ".js", ".jsx", ".scss"],
-        // позволяет создавать псевдонимы для нужных библиотек  и модулей
+        // позволяет создавать псевдонимы для нужных библиотек и модулей
+        // а так же настраиваются сокращения при импортах к указанным директориям
         alias: {
             react: path.resolve(path.join(__dirname, './node_modules/react')),
             'babel-core': path.resolve(
                 path.join(__dirname, './node_modules/@babel/core')
             ),
-            // объявление ресурсного модуля(так же надо объявить его в tsconfig)
+            // объявление ресурсных модулей(так же надо объявить его в tsconfig)
             "@resources": path.join(__dirname, './resources/'),
             "@resources": path.join(__dirname, './resources'),
             "@models": path.join(__dirname, './src/Models'),
             "@consts": path.join(__dirname, './src/Constants'),
             "@actions": path.join(__dirname, './src/Actions/'),
-            "@thunk": path.join(__dirname, './src/Thunk/')
+            "@thunk": path.join(__dirname, './src/Thunk/'),
+            "@containers": path.join(__dirname, './src/Containers/'),
+            "@components": path.join(__dirname, './src/Components/'),
+            "@utils": path.join(__dirname, './src/Utils')
         }
     },
-    // вкл мапы для браузеров
+    // вкл source-map-ы для отображение исходников в браузере
     devtool: "source-map",
-    // загрузчики необходимых ресурсов
+    // загрузчики для различных типов файлов
     module: {
         rules: [{
             test: /\.tsx?$/,
@@ -92,7 +98,7 @@ const webpackConfig = {
             enforce: "pre"
         }]
     },
-    // настройки dev сервера
+    // настройки dev сервера для dev режима
     devServer: {
         contentBase: path.join(__dirname, "dist"),
         index: 'index.html',
@@ -104,7 +110,7 @@ const webpackConfig = {
         // publicPath: '/'
     },
     plugins: [
-        // отвечает за генерацию index.html в /dist
+        // отвечает за генерацию результирующего index.html в /dist
         new HtmlWebpackPlugin(htmlConfig),
         // добавляет манифет о всех ресурсах, используемых в сборке
         new ManifestPlugin(),
@@ -119,7 +125,7 @@ const webpackConfig = {
     ]
 };
 
-module.exports = (env, options) => {
+module.exports = (env) => {
     console.log(`Application run in ${env.NODE_ENV.toUpperCase()} mode`);
 
     return webpackConfig;

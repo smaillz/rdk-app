@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import Modal from './modal';
 
 interface IProps { }
+
 interface IState {
     isModalOpen: boolean;
 }
@@ -13,14 +13,15 @@ export class ModalButton extends React.PureComponent<IProps, IState> {
         isModalOpen: false
     };
 
-    public componentDidMount(): void {
+    public componentDidUpdate(): void {
         const modalBtn: any = document.querySelector('button.modal_btn');
-        modalBtn.addEventListener('keyup', () => console.log('asdasd'));
-    }
 
-    public componentWillUnmount(): void {
-        const modalBtn: any = document.querySelector('button.modal_btn');
-        modalBtn.removeEventListener('keyup', () => console.log('Remove modal listener'));
+        if (this.state.isModalOpen) {
+            modalBtn.addEventListener('keyup', this.handleCloseModal);
+        } else {
+            modalBtn.removeEventListener('keyup', this.handleCloseModal);
+        }
+
     }
 
     private handleCloseModal = ($event: React.MouseEvent | KeyboardEvent): void => this.setState((prevState: IState) => {
