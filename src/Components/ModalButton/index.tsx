@@ -1,53 +1,62 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
+import './styles.scss';
+import { close } from '@resources/images';
 
-interface IProps { }
-
-interface IState {
-    isModalOpen: boolean;
+interface IProps {
+    isOpen: boolean | undefined;
+    onOpen: (isOpen: boolean) => void;
 }
+
+interface IState { }
 
 export class ModalButton extends React.PureComponent<IProps, IState> {
     private modalContainer: HTMLElement | null = document.getElementById('modal');
-    public state: IState = {
-        isModalOpen: false
-    };
 
-    public componentDidUpdate(): void {
+    public componentDidUpdate(newProps: IProps): void {
         const modalBtn: any = document.querySelector('button.modal_btn');
+        const { isOpen } = this.props;
 
-        if (this.state.isModalOpen) {
+        if (isOpen) {
             modalBtn.addEventListener('keyup', this.handleCloseModal);
         } else {
             modalBtn.removeEventListener('keyup', this.handleCloseModal);
         }
-
     }
 
-    private handleCloseModal = ($event: React.MouseEvent | KeyboardEvent): void => this.setState((prevState: IState) => {
-        const { isModalOpen } = prevState;
-        if ($event instanceof KeyboardEvent) {
-            return $event.keyCode === 27 ? { isModalOpen: false } : null;
+    private handleCloseModal = ($event: React.MouseEvent | KeyboardEvent): void => {
+        $event.stopPropagation();
+
+        const { isOpen } = this.props;
+
+        if ($event instanceof KeyboardEvent && $event.keyCode === 27) {
+            this.props.onOpen(false);
+            return;
         }
-        return { isModalOpen: !isModalOpen };
-    })
+
+        this.props.onOpen(!isOpen);
+    }
+
+    private stopPropagation = (e: React.MouseEvent): void => e.stopPropagation();
 
     private renderModal(): React.ReactPortal {
         return ReactDom.createPortal((
-            <div
-                className="modal"
-                onClick={this.handleCloseModal}
-            >
-                <div className="modal_panel">
+            <div className="modal" onClick={this.handleCloseModal} >
+                <div className="modal_panel" onClick={this.stopPropagation} >
+                    <a href="javascript:void(0)" onClick={this.handleCloseModal} >
+                        <img className="modal_close-btn" src={close} />
+                    </a>
+                    <div className="modal_head">
+                        <span className="modal_title">modal title</span>
+                    </div>
                     {this.props.children}
-                    <button className="modal_btn">Close</button>
                 </div>
             </div>
         ), this.modalContainer as Element);
     }
 
     public render(): JSX.Element {
-        const { isModalOpen } = this.state;
+        const { isOpen } = this.props;
 
         return (
             <>
@@ -57,7 +66,7 @@ export class ModalButton extends React.PureComponent<IProps, IState> {
                 >
                     Open
                 </button>
-                {isModalOpen && this.renderModal()}
+                {isOpen && this.renderModal()}
             </>
         );
     }

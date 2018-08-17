@@ -1,21 +1,37 @@
 import * as React from 'react';
 import './styles.scss';
-import { cry_cat } from '@resources/images';
-import ModalButton from '../../Components/ModalButton';
+import ModalButton from '@components/ModalButton';
 
 interface IProps { }
 
 interface IState {
-    isOpen: boolean;
+    isOpenModal?: boolean;
 }
 
 class About extends React.PureComponent<IProps, IState> {
+
+    public state: IState = {
+        isOpenModal: false
+    };
+
+    private handleChangeModal = (isOpen: boolean) => {
+        this.setState((prevState: IState) => ({ isOpenModal: isOpen }));
+    }
+
+    private closeModal = () => this.setState((prevState: IState) => ({ isOpenModal: !prevState.isOpenModal }));
+
     public render(): JSX.Element {
         return (
             <div className="content">
-                <ModalButton>
+                <ModalButton
+                    isOpen={this.state.isOpenModal}
+                    onOpen={this.handleChangeModal}
+                >
                     <div>Modal</div>
-                    <img className="modal_img" src={cry_cat} alt="cat"/>
+                    <img src="https://www.html5rocks.com/static/images/tutorials/easy-hidpi/chrome1x.png"/>
+                    <button onClick={this.closeModal} >
+                        close
+                    </button>
                 </ModalButton>
             </div>
         );
