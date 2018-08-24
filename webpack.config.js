@@ -103,13 +103,20 @@ const webpackConfig = {
         contentBase: path.join(__dirname, "dist"),
         index: 'index.html',
         compress: true,
-        host: "0.0.0.0",
+        // флаг для hot-loading (необходимо добавить плагин webpack.HotModuleReplacementPlugin)
+        // для того чтобы не прописывать флаг в скрипте "--hot"
+        hot: true,
+        // host на котором запущен dev-сервер
+        host: "localhost",
+        // порт на котором запущен dev-сервер
         port: 3000,
         // TODO для роутинга (надо почитать)
         historyApiFallback: true,
         // publicPath: '/'
     },
     plugins: [
+        // плагин для hot-loading
+        new webpack.HotModuleReplacementPlugin(),
         // отвечает за генерацию результирующего index.html в /dist
         new HtmlWebpackPlugin(htmlConfig),
         // добавляет манифет о всех ресурсах, используемых в сборке

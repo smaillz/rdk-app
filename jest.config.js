@@ -34,7 +34,7 @@ module.exports = {
   },
   // файл с настройкам который отрабатывает перед запуском тестов
   // (добавлен для запуска тестов на react v16)
-  setupTestFrameworkScriptFile: '<rootDir>/jest-settings.js',
+  setupTestFrameworkScriptFile: '<rootDir>/scripts/jest-settings.js',
   //флаг при котором если какой-то тест не прошел выполнение тестов не прерывается
   bail: false,
   //флаг при котором каждый запущеный тест отображается в консоли списком
