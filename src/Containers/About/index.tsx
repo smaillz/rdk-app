@@ -14,9 +14,7 @@ class About extends React.PureComponent<IProps, IState> {
         isOpenModal: false
     };
 
-    private handleChangeModal = (isOpen: boolean) => {
-        this.setState((prevState: IState) => ({ isOpenModal: isOpen }));
-    }
+    private handleChangeModal = (isOpen: boolean) => this.setState((prevState: IState) => ({ isOpenModal: isOpen }));
 
     private closeModal = () => this.setState((prevState: IState) => ({ isOpenModal: !prevState.isOpenModal }));
 

@@ -1,21 +1,32 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import './styles.scss';
 import { close } from '@resources/images';
+import './styles.scss';
 
 interface IProps {
-    isOpen: boolean | undefined;
-    onOpen: (isOpen: boolean) => void;
+    isOpen?: boolean | undefined;
+    onOpen?: (isOpen: boolean | undefined) => void;
 }
 
-interface IState { }
+interface IState {
+    isAutoMode?: boolean;
+    isModalOpened?: boolean;
+}
 
 export class ModalButton extends React.PureComponent<IProps, IState> {
     private modalContainer: HTMLElement | null = document.getElementById('modal');
 
-    public componentDidUpdate(newProps: IProps): void {
+    constructor(props: IProps) {
+        super(props);
+
+        const notEmptyCustomProps = Object.keys(this.props).length < 2;
+        console.log(notEmptyCustomProps, Object.keys(this.props).length);
+        this.state = Object.assign({ isAutoMode: notEmptyCustomProps }, notEmptyCustomProps ? { isModalOpened: false } : null);
+    }
+
+    public componentDidUpdate(): void {
         const modalBtn: any = document.querySelector('button.modal_btn');
-        const { isOpen } = this.props;
+        const isOpen = this.state.isAutoMode ? this.state.isModalOpened : this.props.isOpen;
 
         if (isOpen) {
             modalBtn.addEventListener('keyup', this.handleCloseModal);
@@ -26,15 +37,23 @@ export class ModalButton extends React.PureComponent<IProps, IState> {
 
     private handleCloseModal = ($event: React.MouseEvent | KeyboardEvent): void => {
         $event.stopPropagation();
-
-        const { isOpen } = this.props;
-
+        const { isAutoMode } = this.state;
         if ($event instanceof KeyboardEvent && $event.keyCode === 27) {
-            this.props.onOpen(false);
+            if (!isAutoMode) {
+                this.props.onOpen && this.props.onOpen(this.props.isOpen || false);
+            } else {
+                this.setState({ isModalOpened: !this.state.isModalOpened });
+            }
+
             return;
         }
 
-        this.props.onOpen(!isOpen);
+        if (!isAutoMode) {
+            const { isOpen, onOpen } = this.props;
+            onOpen && onOpen(!isOpen);
+        } else {
+            this.setState({ isModalOpened: !this.state.isModalOpened });
+        }
     }
 
     private stopPropagation = (e: React.MouseEvent): void => e.stopPropagation();
@@ -56,7 +75,8 @@ export class ModalButton extends React.PureComponent<IProps, IState> {
     }
 
     public render(): JSX.Element {
-        const { isOpen } = this.props;
+        const { isAutoMode } = this.state;
+        const isOpen = isAutoMode ? this.state.isModalOpened : this.props.isOpen;
 
         return (
             <>

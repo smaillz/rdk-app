@@ -8,23 +8,17 @@ interface IState { }
 
 export class Home extends React.PureComponent<IProps, IState> {
 
-    private mockFunction = (tmp: boolean) => {
-        // do nothing
-    }
-
     public render(): JSX.Element {
         return (
             <div className="content">
                 <p>Start page applications</p>
                 <img src={spoke} alt="Welcome" />
-                <ModalButton
-                    isOpen={false}
-                    onOpen={this.mockFunction}
-                >
+                <ModalButton>
                     <div>
                         <span>asdasd</span>
                     </div>
                 </ModalButton>
+                <ModalButton/>
             </div>
         );
     }
