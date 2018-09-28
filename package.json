@@ -7,13 +7,15 @@
   "scripts": {
     "clean": "rm -rf dist",
     "clean:test": "rm -rf coverage",
-    "prod": "npm run clean && npm run lint && npk run build",
+    "prod": "npm run clean && npm run lint && npm run build && npm run zip",
     "build": "npm run clean && webpack --config ./webpack.config.prod.js --env.NODE_ENV=production",
-    "start": "npm run lint && webpack-dev-server --open 'Google Chrome' --hot --env.NODE_ENV=development",
-    "lint": "tslint src/**/*.ts* --force -p ./",
-    "test": "npm run clean:test && jest --coverage",
+    "start": "npm run lint && webpack-dev-server --open 'Google Chrome' --env.NODE_ENV=development",
+    "start:win": "npm run lint && webpack-dev-server --open chrome --env.NODE_ENV=development",
+    "lint": "tslint src/**/*.ts* --force",
+    "test": "jest --colors",
     "test:dev": "jest --watch",
-    "serve": "node ./server/index.js"
+    "serve": "node ./server/index.js",
+    "zip": "node ./scripts/zip.js"
   },
   "dependencies": {
     "express": "^4.16.3",
@@ -38,6 +40,7 @@
     "@types/react-router-dom": "^4.3.0",
     "@types/redux-actions": "^2.3.0",
     "@types/redux-logger": "^3.0.6",
+    "adm-zip": "^0.4.11",
     "awesome-typescript-loader": "^5.2.0",
     "axios": "^0.18.0",
     "babel-loader": "^8.0.0-beta.2",
