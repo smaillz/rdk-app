@@ -35,6 +35,7 @@ const webpackConfig = {
                 path.join(__dirname, './node_modules/@babel/core')
             ),
             // объявление ресурсных модулей(так же надо объявить его в tsconfig)
+            // первые 2 можно использовать в путях к ресурсам добавляя ~ (напр: ~@resources)
             "@resources": path.join(__dirname, './resources/'),
             "@resources": path.join(__dirname, './resources'),
             "@models": path.join(__dirname, './src/Models'),
