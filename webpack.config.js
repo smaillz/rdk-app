@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 
+const alias = require('./scripts/alias');
+
 // настройки для HtmlWebpackPlugin
 const htmlConfig = {
     title: 'Devkit App',
@@ -30,23 +32,7 @@ const webpackConfig = {
         extensions: [".ts", ".tsx", ".js", ".jsx", ".scss"],
         // позволяет создавать псевдонимы для нужных библиотек и модулей
         // а так же настраиваются сокращения при импортах к указанным директориям
-        alias: {
-            react: path.resolve(path.join(__dirname, './node_modules/react')),
-            'babel-core': path.resolve(
-                path.join(__dirname, './node_modules/@babel/core')
-            ),
-            // объявление ресурсных модулей(так же надо объявить его в tsconfig)
-            // первые 2 можно использовать в путях к ресурсам добавляя ~ (напр: ~@resources)
-            "@resources": path.join(__dirname, './resources/'),
-            "@resources": path.join(__dirname, './resources'),
-            "@models": path.join(__dirname, './src/Models'),
-            "@consts": path.join(__dirname, './src/Constants'),
-            "@actions": path.join(__dirname, './src/Actions/'),
-            "@thunk": path.join(__dirname, './src/Thunk/'),
-            "@containers": path.join(__dirname, './src/Containers/'),
-            "@components": path.join(__dirname, './src/Components/'),
-            "@utils": path.join(__dirname, './src/Utils')
-        }
+        alias
     },
     // вкл source-map-ы для отображение исходников в браузере
     devtool: "source-map",
@@ -119,7 +105,7 @@ const webpackConfig = {
     plugins: [
         // плагин для hot-loading
         new webpack.HotModuleReplacementPlugin(),
-        // отвечает за генерацию результирующего index.html в /dist
+        // отвечает за генерацию результирующего index.html в dist
         new HtmlWebpackPlugin(htmlConfig),
         // добавляет манифет о всех ресурсах, используемых в сборке
         new ManifestPlugin(),

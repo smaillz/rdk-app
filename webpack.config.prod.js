@@ -7,6 +7,8 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 
+const alias = require('./scripts/alias');
+
 // настройки для минимизации html
 const htmlMinimizeOptions = {
     removeComments: true,
@@ -52,23 +54,7 @@ const webpackConfig = {
         extensions: [".ts", ".tsx", ".js", ".jsx", ".scss"],
         // позволяет создавать псевдонимы для нужных библиотек и модулей
         // а так же настраиваются сокращения при импортах к указанным директориям
-        alias: {
-            react: path.resolve(path.join(__dirname, './node_modules/react')),
-            'babel-core': path.resolve(
-                path.join(__dirname, './node_modules/@babel/core')
-            ),
-            // объявление ресурсных модулей(так же надо объявить его в tsconfig)
-            // первые 2 можно использовать в путях к ресурсам добавляя ~ (напр: ~@resources)
-            "@resources": path.join(__dirname, './resources/'),
-            "@resources": path.join(__dirname, './resources'),
-            "@models": path.join(__dirname, './src/Models'),
-            "@consts": path.join(__dirname, './src/Constants'),
-            "@actions": path.join(__dirname, './src/Actions/'),
-            "@thunk": path.join(__dirname, './src/Thunk/'),
-            "@containers": path.join(__dirname, './src/Containers/'),
-            "@components": path.join(__dirname, './src/Components/'),
-            "@utils": path.join(__dirname, './src/Utils')
-        }
+        alias
     },
     // вкл source-map-ы для отображение исходников в браузере
     // в продакшн сборке надо отключать(пока вкл для отладки)
@@ -125,7 +111,7 @@ const webpackConfig = {
         ]
     },
     plugins: [
-        // отвечает за генерацию результирующего index.html в /dist
+        // отвечает за генерацию результирующего index.html в dist
         new HtmlWebpackPlugin(htmlConfig),
         // отвечает за сборку всех scss|sass|css файлов в один файл со стилями
         new MiniCssExtractPlugin(cssConfig),
