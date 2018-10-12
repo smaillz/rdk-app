@@ -2,10 +2,11 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 
 // настройки для HtmlWebpackPlugin
 const htmlConfig = {
-    title: 'Devkit App (dev)',
+    title: 'Devkit App',
     favicon: './public/favicon.ico',
     template: './public/index.html',
 };
@@ -129,6 +130,11 @@ const webpackConfig = {
             'process.env': {
                 'NODE_ENV': JSON.stringify('development')
             }
+        }),
+        // плагин позволяющий в виде lodash templates встраивать переменные в результирующий index.html
+        new InterpolateHtmlPlugin({
+            'ENV_MODE': '(DEV)',
+            'PUBLIC_URL': '/'
         })
     ]
 };

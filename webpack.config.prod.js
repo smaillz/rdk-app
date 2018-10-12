@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require('webpack-manifest-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 
 // настройки для минимизации html
 const htmlMinimizeOptions = {
@@ -24,7 +25,7 @@ const htmlMinimizeOptions = {
 const htmlConfig = {
     title: 'Devkit App',
     favicon: './public/favicon.ico',
-    template: './public/index-prod.html',
+    template: './public/index.html',
     minify: htmlMinimizeOptions
 };
 
@@ -135,6 +136,11 @@ const webpackConfig = {
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
             }
+        }),
+        // плагин позволяющий в виде lodash templates встраивать переменные в результирующий index.html
+        new InterpolateHtmlPlugin({
+            'ENV_MODE': '',
+            'PUBLIC_URL': '/'
         })
     ]
 };
