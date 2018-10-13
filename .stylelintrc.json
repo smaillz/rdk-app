@@ -1,5 +1,8 @@
 {
-	"extends": "stylelint-config-standard",
+	"extends": [
+		"stylelint-config-standard",
+		"stylelint-config-recommended"
+	],
 	"rules": {
 		"font-family-no-missing-generic-family-keyword": null,
 		"indentation": 4,
@@ -22,5 +25,8 @@
 		"media-feature-range-operator-space-after": "always",
 		"media-feature-parentheses-space-inside": "never",
 		"media-feature-colon-space-before": "never"
-	}
+	},
+	"plugins": [
+		"stylelint-scss"
+	]
 }
