@@ -1,8 +1,11 @@
 import * as React from 'react';
 import './styles.scss';
 import ModalButton from '@components/ModalButton';
+import { cry_cat } from '@resources/images';
 
-interface IProps { }
+interface IProps {
+    message?: string;
+}
 
 interface IState {
     isOpenModal?: boolean;
@@ -20,18 +23,18 @@ class About extends React.PureComponent<IProps, IState> {
 
     public render(): JSX.Element {
         return (
-            <div className="content">
+            <main className="rdk-content">
+                <h1>About component</h1>
                 <ModalButton
                     isOpen={this.state.isOpenModal}
                     onOpen={this.handleChangeModal}
                 >
                     <div>Modal</div>
-                    <img src="https://www.html5rocks.com/static/images/tutorials/easy-hidpi/chrome1x.png"/>
-                    <button onClick={this.closeModal} >
-                        close
-                    </button>
+                    <p>{this.props.message || 'NOT MESSAGE'}</p>
+                    <img src={cry_cat} />
+                    <button onClick={this.closeModal} >Close</button>
                 </ModalButton>
-            </div>
+            </main>
         );
     }
 }

@@ -3,34 +3,43 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { store, history } from './store';
 import { hot } from 'react-hot-loader';
-import Home from './Containers/Home';
-import About from './Containers/About';
-import Header from './Containers/Header';
-import Menu from './Containers/Menu';
 import { IRouteConfig } from '@models';
-import RootRoute from './Routes';
+import { SwitchRouteWrapper } from './Routes';
+
+import Header from '@containers/Header';
+import Footer from '@containers/Footer';
+import Home from '@containers/Content/Home';
+import Menu from '@containers/Content/Menu';
+import About from '@containers/Content/About';
+import Contacts from '@containers/Content/Contacts';
 import './main.scss';
 
 const routeConf: IRouteConfig[] = [{
+    exact: true,
     path: '/',
-    name: 'Home',
-    component: Home
-}, {
-    path: '/about',
-    name: 'About',
-    component: About
+    component: Home,
+    ownProps: { message: ' Home props' }
 }, {
     path: '/menu',
-    name: 'Menu',
     component: Menu
+}, {
+    path: '/about',
+    component: About,
+    ownProps: { message: ' About props' }
+}, {
+    path: '/contacts',
+    component: Contacts,
+    cov: true,
+    redirectTo: '/about'
 }];
 
 const Root = () => (
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <>
-                <Header/>
-                <RootRoute routes={routeConf} />
+                <Header />
+                <SwitchRouteWrapper routes={routeConf} />
+                <Footer />
             </>
         </ConnectedRouter>
     </Provider>

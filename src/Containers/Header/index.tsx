@@ -1,43 +1,48 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+import * as classNames from 'classnames';
 import './styles';
-import { increment } from '@actions/second-actions';
-import { resetAsyncCount } from '@thunk/second-thunk';
-import { ReduxState } from '@models';
-import NavBar from './NavBar';
 
-interface IProps extends IStateToProps, IDispatchToProps { }
+interface IProps extends RouteComponentProps { }
 interface IState { }
+
+interface IHeaderLink {
+    path: string;
+    name: string;
+}
 
 export class Header extends React.PureComponent<IProps, IState> {
 
+    private links: IHeaderLink[] = [{
+        path: '/menu',
+        name: 'Menu'
+    }, {
+        path: '/about',
+        name: 'About'
+    }, {
+        path: '/contacts',
+        name: 'Contacts'
+    }];
+
+    private renderLink = ({ path, name }: IHeaderLink, i: number): JSX.Element => {
+        const linkClasses = classNames('link_item', { 'active-link': this.props.location.pathname === path });
+        return (
+            <li key={i} className={linkClasses} >
+                <Link to={path}>{name}</Link>
+            </li>
+        );
+    }
+
     public render(): JSX.Element {
-        return (<NavBar />);
+        return (
+            <header className="rdk-head">
+                <Link className="app_logo" to="/" />
+                <ul className="link_list">
+                    {this.links.map(this.renderLink)}
+                </ul>
+            </header>
+        );
     }
 }
 
-interface IStateToProps {
-    count: number;
-}
-
-interface IDispatchToProps {
-    increment: () => void;
-    resetAsyncCount: () => void;
-}
-
-export const mapStateToProps = (state: ReduxState.State): IStateToProps => {
-    const { count } = state.secondState;
-
-    return {
-        count
-    };
-};
-
-export const mapDispatchToProps = (dispatch: Function): IDispatchToProps => {
-    return {
-        increment: () => dispatch(increment()),
-        resetAsyncCount: () => dispatch(resetAsyncCount())
-    };
-};
-
-export default connect<IStateToProps, IDispatchToProps>(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(Header);

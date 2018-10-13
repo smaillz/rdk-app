@@ -1,25 +1,32 @@
 import * as React from 'react';
-import { Route, Switch } from 'react-router';
+import {
+    Route, Switch
+    , Redirect
+} from 'react-router';
 import { IRouteConfig } from '@models';
 
-interface IProps {
+export interface IRootProps {
     routes: IRouteConfig[];
-    exactInd?: number;
 }
 
-const RootRoute = ({ routes, exactInd = 0 }: IProps): JSX.Element => (
+export const SwitchRouteWrapper = ({ routes }: IRootProps): JSX.Element => (
     <Switch>
-        {
-            routes.map((route: IRouteConfig, i: number): JSX.Element => (
-                <Route
-                    key={i}
-                    exact={exactInd === i}
-                    path={route.path}
-                    component={route.component}
-                />
-            ))
-        }
+        {routes.map((routeConfig: IRouteConfig, i: number): JSX.Element => (
+            <Route
+                key={i}
+                exact={routeConfig.exact}
+                path={routeConfig.path}
+                render={renderRouteComponent(routeConfig)}
+            />
+        ))}
     </Switch>
 );
 
-export default RootRoute;
+const renderRouteComponent = (routeConfig: any) => (routeProps: any) => {
+    const { component: Component, cov, ownProps, redirectTo, path } = routeConfig;
+    const finalProps = Object.assign({}, ownProps, routeProps);
+
+    return !cov && path !== '/contacts'
+        ? <Component {...finalProps} />
+        : <Redirect to={{ pathname: redirectTo, state: { from: routeProps.location } }} />;
+};

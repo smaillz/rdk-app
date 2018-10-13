@@ -20,7 +20,6 @@ export class ModalButton extends React.PureComponent<IProps, IState> {
         super(props);
 
         const notEmptyCustomProps = Object.keys(this.props).length < 2;
-        console.log(notEmptyCustomProps, Object.keys(this.props).length);
         this.state = Object.assign({ isAutoMode: notEmptyCustomProps }, notEmptyCustomProps ? { isModalOpened: false } : null);
     }
 

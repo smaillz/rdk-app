@@ -72,7 +72,7 @@ const webpackConfig = {
                 }
             }]
         }, {
-            test: /\.(eot|ttf|woff|woff2)$/,
+            test: /\.(eot|ttf|woff|woff2|otf)$/,
             use: [{
                 loader: 'file-loader',
                 options: {
