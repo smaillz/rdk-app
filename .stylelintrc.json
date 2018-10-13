@@ -1,6 +1,7 @@
 {
 	"extends": "stylelint-config-standard",
 	"rules": {
+		"font-family-no-missing-generic-family-keyword": null,
 		"indentation": 4,
 		"string-quotes": "double",
 		"no-duplicate-selectors": true,

@@ -10,7 +10,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: #ffffff;
+        background: white;
         min-width: 150px;
         min-height: 200px;
         box-sizing: border-box;
@@ -18,17 +18,17 @@
         padding: 30px 10px 10px;
         box-shadow: 0 0 50px rgba(0, 0, 0, 0.856);
     }
-    &_head{
+    &_head {
         width: 100%;
         text-align: center;
         padding-bottom: 10px;
     }
-    &_title{
+    &_title {
         font-size: 25px;
         font-weight: bold;
         font-style: oblique;
     }
-    &_close-btn{
+    &_close-btn {
         position: absolute;
         top: 5px;
         right: 5px;

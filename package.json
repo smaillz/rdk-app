@@ -12,7 +12,7 @@
     "start": "npm run lint && webpack-dev-server --open 'Google Chrome' --env.NODE_ENV=development",
     "start:win": "npm run lint && webpack-dev-server --open chrome --env.NODE_ENV=development",
     "lint": "tslint src/**/*.ts* --force",
-    "stylelint": "stylelint src/**/*.s*ss",
+    "stylelint": "stylelint src/**/*.s*ss --fix",
     "test": "jest --colors",
     "test:dev": "jest --watch",
     "serve": "node ./server/index.js",

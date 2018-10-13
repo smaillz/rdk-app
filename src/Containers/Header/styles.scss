@@ -3,54 +3,44 @@
         transform: rotate(360deg);
     }
 }
-
 .app_logo {
     float: left;
     width: 60px;
     height: 50px;
     margin: 0 20px;
-    background: url('~@resources/images/nasa-logo.png') no-repeat;
+    background: url("~@resources/images/nasa-logo.png") no-repeat;
     background-size: cover;
-
     &:hover {
         animation: spin 1s;
     }
-
 }
-
 .link {
     &_list {
         float: right;
         margin: 5px 20px 0;
     }
-
     &_item {
         display: inline-block;
         padding-left: 10px;
-
         &:first-child {
             padding-left: 0;
         }
-
+        & > a {
+            font-family: "BravoRG";
+            font-weight: bold;
+            font-size: 30px;
+            text-decoration: none;
+            &:visited {
+                color: inherit;
+            }
+        }
         &.active-link,
         &:hover {
             color: red;
             text-decoration: underline;
             text-decoration-color: black;
-
-            &>a {
+            & > a {
                 text-decoration-color: inherit;
-            }
-        }
-
-        &>a {
-            font-family: 'BravoRG';
-            font-weight: bold;
-            font-size: 30px;
-            text-decoration: none;
-
-            &:visited {
-                color: inherit;
             }
         }
     }

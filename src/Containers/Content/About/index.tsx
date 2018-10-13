@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './styles.scss';
 import ModalButton from '@components/ModalButton';
 import { cry_cat } from '@resources/images';
 

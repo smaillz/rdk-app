@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './styles.scss';
 
 interface IProps { }
 interface IState { }
