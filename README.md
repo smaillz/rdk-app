@@ -1,4 +1,4 @@
-# Devkit React App
+# Devkit React App test
 
 Devkit Typescript-React Applicarion witch using Webpack v4
 
